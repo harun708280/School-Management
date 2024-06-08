@@ -71,3 +71,76 @@ def Add_Student(request):
     }
 
     return render(request, 'hod/addstudent.html', context)
+
+
+def StuddentView(request):
+    studdent=Student.objects.all().order_by('-id')
+    context={
+        'student':studdent
+    }
+    return render(request,'hod/view_student.html',context)
+
+def Student_Edit(request,id):
+    student=Student.objects.filter(id=id)
+    courses = Course.objects.all()
+    sessions = session_year.objects.all()
+    
+    context={
+        'student':student,
+        'course':courses,
+        'session':sessions,
+    }
+    
+    return render(request,'hod/student_edit.html',context)
+
+def StudentUpdate(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        religion = request.POST.get('raligion')  
+        gender = request.POST.get('gender')
+        course_id = request.POST.get('course')
+        session = request.POST.get('session')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        profile_pic = request.FILES.get('pic')
+        password = request.POST.get('password')
+        address = request.POST.get('address')
+        
+        # Update CustomUser
+        user = CustomUser.objects.get(id=student_id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.username = username
+        if profile_pic:
+            user.profile_pic = profile_pic
+        if password:
+            user.set_password(password)
+        user.save()
+        
+        # Update Student
+        student = Student.objects.get(admin=user)
+        course = Course.objects.get(id=course_id)
+        session=session_year.objects.get(id=session)
+        student.address = address
+        student.religion = religion
+        student.gender = gender
+        student.course_id = course 
+        student.session_year=session
+        student.phone=phone
+        student.save()
+        messages.success(request,'succesfully Edit Now' +user.first_name + ' '+ user.last_name)
+        
+        return redirect('viewStudent')
+    else:
+        messages.warning(request,'Something Went Wrong')
+        return redirect('updateStudent')
+        
+def DeleteStudent(request, admin):
+    student = CustomUser.objects.get(id=admin)
+    student.delete()
+    messages.success(request, 'Successfully deleted student')
+    return redirect('viewStudent')

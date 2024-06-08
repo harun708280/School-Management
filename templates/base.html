@@ -155,7 +155,7 @@
                         <ul>
                            {% comment %} <li><a href="students.html">Student List</a></li> {% endcomment %}
                            <li><a href="{% url "addstudent" %}"> Add Student</a></li>
-                           <li><a href="student-details.html"> View Student</a></li>
+                           <li><a href="{% url "viewStudent" %}"> View Student</a></li>
                            
                            <li><a href="edit-student.html"> Edit Student</a></li>
                         </ul>

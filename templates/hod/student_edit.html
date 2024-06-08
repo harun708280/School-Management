@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Edit-Student{% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+       <div class="page-header">
+          <div class="row align-items-center">
+             <div class="col">
+                <h3 class="page-title">Edit Students</h3>
+                <ul class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="students.html">Students</a></li>
+                   <li class="breadcrumb-item active">Edit Students</li>
+                </ul>
+             </div>
+          </div>
+       </div>
+       {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong> 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          {% endfor %}
+                          {% endif %}
+       <div class="row">
+          <div class="col-sm-12">
+             <div class="card">
+                <div class="card-body">
+                   <form action="{% url "updateStudent" %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <div class="row">
+                         <div class="col-12">
+                          <h5 class="form-title"><span>Student Information</span></h5>
+                         </div>
+                         
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>First Name</label>
+                               <input type="text" class="form-control" name="first_name" value="{% for s in student %}{{s.admin.first_name}}{% endfor %}" >
+                               <input type="text" class="form-control" name="student_id" value="{% for s in student %}{{s.admin.id}}{% endfor %}" hidden>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Last Name</label>
+                               <input type="text" class="form-control" name="last_name" value="{% for s in student %}{{s.admin.last_name}}{% endfor %}" >
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Username</label>
+                               <input type="text" class="form-control" name="username" value="{% for s in student %}{{s.admin.username}}{% endfor %}" >
+                            </div>
+                         </div>
+
+                         {% comment %} <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Date of Birth</label>
+                               <div>
+                                  <input type="date" class="form-control" name="date_of_brith" value="{{student.dateOfBrith}}"required>
+                               </div>
+                            </div>
+                         </div> {% endcomment %}
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Religion</label>
+                               <input type="text" class="form-control" name="raligion" value="{% for s in student %}{{s.religion}}{% endfor %}" >
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select class="form-control" name="gender" >
+                                    <option value="" disabled>Select Gender</option>
+                                    <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+                                    <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+                                    <option value="Others" {% if student.gender == "Others" %}selected{% endif %}>Others</option>
+                                </select>
+                            </div>
+                        </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Course</label>
+                               <select class="form-control" name="course" required>
+                                  <option value="" disabled selected>Select Course</option>
+                                  {% for c in course %}
+                                  <option value="{{ c.id }}">{{ c.name }}</option>
+                                  {% endfor %}
+                               </select>
+                            </div>
+                         </div>
+                         
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Session Year</label>
+                               <select class="form-control" name="session" required>
+                                  <option value="" disabled selected>Select Session</option>
+                                  {% for s in session %}
+                                  <option value="{{ s.id }}">{{ s.session_start }} to {{ s.session_end }}</option>
+                                  {% endfor %}
+                               </select>
+                            </div>
+                         </div>
+                         
+                         {% comment %} <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Join Date</label>
+                                <div>
+                                    <input type="date" class="form-control" name="join_date" value="{{ student.create_at|date:'Y-m-d' }}" required>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                        
+                        
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Mobile Number</label>
+                               <input type="text" class="form-control" name="phone" value="{% for s in student %}{{s.phone}}{% endfor %}" >
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Email</label>
+                               <input type="email" class="form-control" value="{% for s in student %}{{s.admin.email}}{% endfor %}" name="email" >
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Student Image</label>
+                               <input type="file" class="form-control" value="{% for s in student %}{{s.admin.profile_pic}}{% endfor %}" name="pic">
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" id="password" name="password" >
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="show-password">
+                                <label class="form-check-label" for="show-password">Show Password</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea class="form-control" name="address" required>{% for s in student %}{{ s.address }}{% endfor %}</textarea>
+                            </div>
+                        </div>
+                        
+                         
+                         <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Update Student</button>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+<script>
+    document.getElementById('show-password').addEventListener('change', function() {
+        var passwordField = document.getElementById('password');
+        if (this.checked) {
+            passwordField.type = 'text';
+        } else {
+            passwordField.type = 'password';
+        }
+    });
+</script>
+{% endblock content %}
