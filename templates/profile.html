@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Update Profile</h3>
+                    {% if messages %}
+
+                        {% for message in messages %}
+                        
+
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong> 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          {% endfor %}
+                          {% endif %}
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="subjects.html">Subjects</a></li>
+                        <li class="breadcrumb-item active">Update Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method='post' action='{% url "updateprofile" %}' enctype="multipart/form-data">
+                            {% csrf_token %}
+                        
+                            <div class="col-12">
+                                <h5 class="form-title"><span>Profile Update</span></h5>
+                            </div>
+                            
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label for="profile_pic">Profile Picture</label>
+                                    <input type="file" class="form-control" name='profile_pic' id="profile_pic" value={{'user.profile_pic'}}>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label for="first_name">First Name</label>
+                                    <input type="text" class="form-control" name='first_name' id="first_name" value="{{ user.first_name }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label for="last_name">Last Name</label>
+                                    <input type="text" class="form-control" name='last_name' id="last_name" value="{{ user.last_name }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" name='username' id="username" value="{{ user.username }}" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" name='email' id="email" value="{{ user.email }}" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-11">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" name='password' id="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-11">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="show-password">
+                                    <label class="form-check-label" for="show-password">Show Password</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </div>
+                        </form>
+                        
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('show-password').addEventListener('change', function() {
+        var passwordField = document.getElementById('password');
+        if (this.checked) {
+            passwordField.type = 'text';
+        } else {
+            passwordField.type = 'password';
+        }
+    });
+    </script>
+{% endblock content %}
