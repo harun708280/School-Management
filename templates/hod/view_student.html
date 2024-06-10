@@ -66,7 +66,7 @@
                                                             <img class="avatar-img rounded-circle" src= "{% static "assets/img/no-photo-icon-22 copy.png" %}"  alt="Default Image">
                                                         </a>
                                                     {% endif %}
-                                                    <a href="student-details.html">{{ s.admin.first_name }} {{ s.admin.last_name }}</a>
+                                                    <a href="{% url "student_details" s.id %}">{{ s.admin.first_name }} {{ s.admin.last_name }}</a>
                                                 </h2>
                                             </td>
                                             <td>{{s.admin.email}}</td>

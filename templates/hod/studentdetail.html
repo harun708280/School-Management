@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block tilte %}Details Student{% endblock tilte %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Student Details</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="students.html">Student</a></li>
+                        <li class="breadcrumb-item active">Student Details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="about-info">
+                            <h4>About {{student.admin.first_name}} {{student.admin.last_name}}</h4>
+                            <div class="media mt-3">
+                                <img src="{{ student.admin.profile_pic.url }}" class="mr-3" style="width: 400px; height: 370px;" alt="...">
+                                <div class="media-body">
+                                    <ul>
+                                        <li>
+                                            <span class="title-span">Serial Number :</span>
+                                            <span class="info-span">708280{{ student.id }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Full Name :</span>
+                                            <span class="info-span">{{ student.admin.first_name }} {{ student.admin.last_name }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Department :</span>
+                                            <span class="info-span">{{ student.course_id.name }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Session Year :</span>
+                                            <span class="info-span">{{ student.session_year.session_start }} to {{ student.session_year.session_end }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Apply Date :</span>
+                                            <span class="info-span">{{ student.create_at }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Mobile :</span>
+                                            <span class="info-span">{{ student.phone }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Email :</span>
+                                            <span class="info-span">{{ student.admin.email }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">Gender :</span>
+                                            <span class="info-span">{{ student.gender }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="title-span">DOB :</span>
+                                            <span class="info-span">{{ student.dateOfBrith }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <p>Hello I am {{student.admin.first_name}} {{student.admin.last_name}} Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.</p>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <h5>Present Address</h5>
+                                    <p>{{student.address}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

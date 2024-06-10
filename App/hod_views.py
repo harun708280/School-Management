@@ -142,5 +142,60 @@ def StudentUpdate(request):
 def DeleteStudent(request, admin):
     student = CustomUser.objects.get(id=admin)
     student.delete()
-    messages.success(request, 'Successfully deleted student')
+    messages.success(request, 'Successfully deleted student ' )
     return redirect('viewStudent')
+
+def StudentDetails(request,id):
+    student=Student.objects.get(id=id)
+    return render(request,'hod/studentdetail.html',locals())
+
+
+def Add_Course(request):
+    if request.method=='POST':
+        cours_name=request.POST.get('course')
+        
+        course=Course(
+            name=cours_name
+        )
+        course.save()
+        messages.success(request,'Course are succesfully create '  )
+        return redirect('course_view')
+    # else :
+    #     messages.warning(request,'Something went wrong')
+    #     return redirect('add_course')
+    return render(request,'hod/add_course.html')
+
+def view_course(request):
+    coures=Course.objects.all().order_by('-id')
+    context={
+        'course':coures,
+    }
+    
+    return render(request,'hod/course_view.html',context)
+
+def edit_course(request,id):
+    course=Course.objects.get(id=id)
+    context={
+        'c':course,
+    }
+    return render(request,'hod/edit_course.html',context)
+
+def Update_crouse(request):
+    if request.method == 'POST':
+        course=request.POST.get('course_name')
+        course_id=request.POST.get('course_id')
+        
+        course_name=Course.objects.get(id=course_id)
+        
+        course_name.name=course
+        course_name.save()
+        
+        messages.success(request,'SucessFully Update ' + course_name.name )
+        
+        return redirect('course_view')
+        
+def crouse_delate(request,id):
+    course=Course.objects.get(id=id) 
+    course.delete()  
+    messages.success(request,'Sucessfuily Delate')
+    return redirect('course_view')
