@@ -199,3 +199,6 @@ def crouse_delate(request,id):
     course.delete()  
     messages.success(request,'Sucessfuily Delate')
     return redirect('course_view')
+
+def StafAdd(request):
+    return render(request,'hod/add_staf.html')

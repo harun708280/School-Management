@@ -41,3 +41,18 @@ class Student(models.Model):
     def __str__(self):
         return self.admin.first_name+ ''+self.admin.last_name
     
+class Staf(models.Model):
+    admin=models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    address=models.CharField( max_length=50)
+    gender=models.CharField( max_length=50)
+    religion=models.CharField( max_length=50)
+    univercity=models.CharField( max_length=50)
+    subject=models.CharField( max_length=50)
+    phone=models.CharField( max_length=50)
+    create=models.DateField( auto_now_add=False)
+    update=models.DateField( auto_now=True)
+    def __str__(self):
+        return self.admin.username
+    
+    
+    

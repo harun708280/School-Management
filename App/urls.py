@@ -28,6 +28,7 @@ urlpatterns = [
     path('hod/course_edit/<str:id>',hod_views.edit_course,name='edit_course'),
     path('ho/crouse/update/',hod_views.Update_crouse,name='course_update'),
     path('hod.couse/delate/<str:id>',hod_views.crouse_delate,name='crouse_delate'),
+    path('hod/staf_add/',hod_views.StafAdd,name='stafadd')
 
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

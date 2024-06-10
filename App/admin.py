@@ -7,4 +7,5 @@ admin.site.register(CustomUser),
 admin.site.register(Course),
 admin.site.register(session_year),
 admin.site.register(Student),
+admin.site.register(Staf),
 # Register your models here.
