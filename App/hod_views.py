@@ -201,4 +201,60 @@ def crouse_delate(request,id):
     return redirect('course_view')
 
 def StafAdd(request):
+    if request.method== 'POST':
+        first_name=request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        raligion=request.POST.get('raligion')
+        univercity=request.POST.get('univercity')
+        subject=request.POST.get('subject')
+        gender=request.POST.get('gender')
+        join_date=request.POST.get('join_date')
+        phone=request.POST.get('phone')
+        email=request.POST.get('email')
+        picture=request.FILES.get('pic')
+        address=request.POST.get('address')
+        
+        if CustomUser.objects.filter(username=username).exists():
+            messages.warning(request,'This username Already Used')
+            return redirect('stafadd')
+        
+        if CustomUser.objects.filter(email=email).exists():
+            messages.warning(request,'sorry this email already used')
+            return redirect('stafadd')
+        
+        else:
+            staf_user=CustomUser(
+                
+                first_name=first_name,
+                last_name=last_name,
+                username=username,
+                email=email,
+                user_type=2,
+                profile_pic=picture     
+            )
+            
+            staf_user.set_password(password)
+            staf_user.save()
+            
+            staf=Staf(
+                admin=staf_user,
+                address=address,
+                gender=gender,
+                religion=raligion,
+                univercity=univercity,
+                subject=subject,
+                phone=phone,
+                create=join_date
+            )
+            staf.save()
+            messages.success(request,'Sucessfully Added by '+staf_user.first_name+ ' '+staf_user.last_name)
+            return redirect('stafadd')
+        
+        
+    
+        
     return render(request,'hod/add_staf.html')
+
+
