@@ -258,3 +258,73 @@ def StafAdd(request):
     return render(request,'hod/add_staf.html')
 
 
+def Staf_view(request):
+    staf=Staf.objects.all().order_by('-id')
+    context={
+        'staf':staf
+    }
+    return render(request,'hod/staf_view.html',context)
+
+
+def Staf_Edit(request,id):
+    edit=Staf.objects.filter(id=id)
+    return render(request,'hod/stafedit.html',locals())
+
+def stafUpdate(request):
+    if request.method == 'POST':
+        staf_id=request.POST.get('staf_id')
+        first_name=request.POST.get('first_name')
+        last_name=request.POST.get('last_name')
+        username=request.POST.get('username')
+        raligion=request.POST.get('raligion')
+        univercity=request.POST.get('univercity')
+        subject=request.POST.get('subject')
+        gender=request.POST.get('gender')
+        phone=request.POST.get('phone')
+        email=request.POST.get('email')
+        picture=request.FILES.get('pic')
+        password=request.POST.get('password')
+        address=request.POST.get('address')
+        
+        staf=CustomUser.objects.get(id=staf_id)
+        staf.first_name=first_name
+        staf.last_name=last_name
+        staf.email=email
+        staf.username=username
+        
+        if password:
+            staf.set_password(password)
+        
+        if picture:
+            staf.profile_pic=picture
+            
+        staf.save()
+        
+        staf_edit=Staf.objects.get(admin=staf)
+        
+        staf_edit.address=address
+        staf_edit.religion=raligion
+        staf_edit.univercity=univercity
+        staf_edit.subject=subject
+        staf_edit.gender=gender
+        staf_edit.phone=phone
+        
+        staf_edit.save()
+        
+        messages.success(request,'Succesfull Update Complete'+ staf.first_name + ' '+staf.last_name)
+        return redirect('stafView')
+    
+def staf_delate(request,admin):
+    staf=CustomUser.objects.get(id=admin)
+    staf.delete()
+    messages.success(request,'SuccesFully Staf Delate')
+    return redirect('stafView')
+
+def Staf_details(request,id):
+    staf=Staf.objects.get(id=id)
+    return render(request,'hod/stafdetails.html',locals())
+        
+        
+        
+        
+       

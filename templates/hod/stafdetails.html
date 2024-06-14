@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}staf Details{% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    <div class="page-header">
+    <div class="row">
+    <div class="col-sm-12">
+    <h3 class="page-title">Staff Details</h3>
+    <ul class="breadcrumb">
+    <li class="breadcrumb-item"><a href="teachers.html">Staff</a></li>
+    <li class="breadcrumb-item active">Staff Details</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    <div class="card">
+    <div class="card-body">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="about-info">
+    <h4>About {{staf.admin.first_name}} {{staf.admin.last_name}}</h4>
+    <div class="media mt-3">
+    <img src="{{staf.admin.profile_pic.url}}" class="mr-3" alt="...">
+    <div class="media-body">
+    <ul>
+    <li>
+    <span class="title-span">Full Name : </span>
+    <span class="info-span">{{staf.admin.first_name}} {{staf.admin.last_name}}</span>
+    </li>
+    <li>
+        <span class="title-span">Univercity : </span>
+        <span class="info-span">{{staf.univercity}}</span>
+        </li>
+    <li>
+    <span class="title-span">Department : </span>
+    <span class="info-span">{{staf.subject}}</span>
+    </li>
+    <li>
+    <span class="title-span">Mobile : </span>
+    <span class="info-span">{{staf.phone}}</span>
+    </li>
+    <li>
+    <span class="title-span">Email : </span>
+    <span class="info-span">{{staf.admin.email}}</span>
+    </li>
+    <li>
+    <span class="title-span">Gender : </span>
+    <span class="info-span">Male</span>
+    </li>
+    <li>
+    <span class="title-span">DOB : </span>
+    <span class="info-span">22 Apr 1995</span>
+    </li>
+    </ul>
+    </div>
+    </div>
+    <div class="row mt-3">
+    <div class="col-md-12">
+    <p>Hello I am Daisy Parks. Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.</p>
+    </div>
+    </div>
+    
+    <div class="row mt-2">
+    <div class="col-md-12">
+    <h5>Present Address</h5>
+    <p>480, Estern Avenue, Courtage area, New York</p>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="row mt-2">
+    <div class="col-md-12">
+    <div class="skill-info">
+    <h4>Skills</h4>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry</p>
+    <ul>
+    <li>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    
+        
+    
+{% endblock content %}

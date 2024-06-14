@@ -12,6 +12,9 @@
       <link rel="stylesheet" href="{% static "assets/plugins/fontawesome/css/fontawesome.min.css" %}">
       <link rel="stylesheet" href="{% static "assets/plugins/fontawesome/css/all.min.css" %}">
       <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+      <!--  datatable -->
+      <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+      <link rel="stylesheet" href="{% static 'assets/plugins/datatables/datatables.min.css' %}">
    </head>
    <body>
       <div class="main-wrapper">
@@ -164,7 +167,7 @@
                         <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Staff</span> <span class="menu-arrow"></span></a>
                         <ul>
                            {% comment %} <li><a href="teachers.html">Teacher List</a></li> {% endcomment %}
-                           <li><a href="teacher-details.html">Staff View</a></li>
+                           <li><a href="{% url "stafView" %}">Staff View</a></li>
                            <li><a href="{% url "stafadd" %}">Staff Add</a></li>
                            {% comment %} <li><a href="edit-teacher.html">Staff Edit</a></li> {% endcomment %}
                         </ul>
@@ -331,6 +334,14 @@
       <script src="{% static "assets/plugins/apexchart/apexcharts.min.js" %}"></script>
       <script src="{% static "assets/plugins/apexchart/chart-data.js" %}"></script>
       <script src="{% static "assets/js/script.js" %}"></script>
+      <script src="{% static 'assets/plugins/datatables/datatables.min.js'%}"></script>
+      <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+      <script type="text/javascript">
+         $(document).ready(function () {
+            $('#table_id').dataTable();
+         });
+      </script>
+
    </body>
    
 </html>

@@ -28,7 +28,12 @@ urlpatterns = [
     path('hod/course_edit/<str:id>',hod_views.edit_course,name='edit_course'),
     path('ho/crouse/update/',hod_views.Update_crouse,name='course_update'),
     path('hod.couse/delate/<str:id>',hod_views.crouse_delate,name='crouse_delate'),
-    path('hod/staf_add/',hod_views.StafAdd,name='stafadd')
+    path('hod/staf_add/',hod_views.StafAdd,name='stafadd'),
+    path('hode/staf-view/',hod_views.Staf_view,name='stafView'),
+    path('hod/staf_edit/<str:id>',hod_views.Staf_Edit,name='edit_staf'),
+    path('hod/stafupdate/',hod_views.stafUpdate,name='stafupdate'),
+    path('hod/staf_delate/<int:admin>/',hod_views.staf_delate,name='stafdelate'),
+    path('hod/stafDetails/<int:id>/',hod_views.Staf_details,name='stafdetails'),
 
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

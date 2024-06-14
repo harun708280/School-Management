@@ -52,7 +52,7 @@ class Staf(models.Model):
     create=models.DateField( auto_now_add=False)
     update=models.DateField( auto_now=True)
     def __str__(self):
-        return self.gender
+        return self.admin.username
     
     
     

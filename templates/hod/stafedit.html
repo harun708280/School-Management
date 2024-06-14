@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block title %}Edit{% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+       <div class="page-header">
+          <div class="row align-items-center">
+             <div class="col">
+                <h3 class="page-title">Add Staff</h3>
+                <ul class="breadcrumb">
+                   <li class="breadcrumb-item"><a href="students.html">Staf</a></li>
+                   <li class="breadcrumb-item active">Add Staff</li>
+                </ul>
+             </div>
+          </div>
+       </div>
+       {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}</strong> 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          {% endfor %}
+                          {% endif %}
+       <div class="row">
+          <div class="col-sm-12">
+             <div class="card">
+                <div class="card-body">
+                   <form action="{% url "stafupdate" %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <div class="row">
+                         <div class="col-12">
+                          <h5 class="form-title"><span>Staff Information</span></h5>
+                         </div>
+                         
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>First Name</label>
+                               <input type="text" class="form-control" value="{% for e in edit %} {{e.admin.first_name}} {% endfor %}" name="first_name" required>
+                               <input type="text" class="form-control" value="{% for e in edit %} {{e.admin.id}} {% endfor %}" name="staf_id" hidden>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Last Name</label>
+                               <input type="text" class="form-control" value=" {% for e in edit %}{{e.admin.last_name}}{% endfor %} "name="last_name" required>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Username</label>
+                               <input type="text" class="form-control" value="{% for e in edit %}{{e.admin.username}}{% endfor %}" name="username" required>
+                            </div>
+                         </div>
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Religion</label>
+                               <input type="text" class="form-control" value="{% for e in edit %} {{e.religion}} {% endfor %}" name="raligion" required>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Univercity</label>
+                               <input type="text" value="{% for e in edit %} {{e.univercity}} {% endfor %}" class="form-control" name="univercity" required>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Subject</label>
+                               <input type="text" value="{% for e in edit %} {{e.subject}} {% endfor %}" class="form-control" name="subject" required>
+                            </div>
+                         </div>
+
+                         
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select class="form-control" name="gender" required>
+                                    <option value="" disabled>Select Gender</option>
+                                    <option value="Female" {% if edit.gender == 'Female' %} selected {% endif %}>Female</option>
+                                    <option value="Male" {% if edit.gender == 'Male' %} selected {% endif %}>Male</option>
+                                    <option value="Others" {% if edit.gender == 'Others' %} selected {% endif %}>Others</option>
+                                </select>
+                            </div>
+                        </div>
+
+                         
+                         
+                         
+                         
+                         {% comment %} <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Join Date</label>
+                               <div>
+                                  <input type="date" class="form-control" name="join_date" required>
+                               </div>
+                            </div>
+                         </div> {% endcomment %}
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Mobile Number</label>
+                               <input type="text" value="{% for e in edit %} {{e.phone}} {% endfor %}" class="form-control" name="phone" required>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label>Email</label>
+                               <input type="email" value="{% for e in edit %} {{e.admin.email}} {% endfor %}" class="form-control" name="email" required>
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label> Image</label>
+                               <input type="file" class="form-control" name="pic">
+                            </div>
+                         </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" id="password" name="password" >
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="show-password">
+                                <label class="form-check-label" for="show-password">Show Password</label>
+                            </div>
+                        </div>
+
+                         <div class="col-12 col-sm-6">
+                            <div class="form-group">
+                               <label value="{% for e in edit %} {{e.religion}} {% endfor %}">Address</label>
+                               <textarea class="form-control"  name="address" required placeholder='Upozila/Zila/Division'>{% for e in edit %} {{e.address}} {% endfor %}</textarea>
+                            </div>
+                         </div>
+                         
+                         <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+</div>
+<script>
+    document.getElementById('show-password').addEventListener('change', function() {
+        var passwordField = document.getElementById('password');
+        if (this.checked) {
+            passwordField.type = 'text';
+        } else {
+            passwordField.type = 'password';
+        }
+    });
+</script>
+{% endblock content %}
