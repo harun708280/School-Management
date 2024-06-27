@@ -80,16 +80,18 @@
                          
 
                          <div class="col-12 col-sm-6">
-                            <div class="form-group">
-                                <label>Gender</label>
-                                <select class="form-control" name="gender" required>
-                                    <option value="" disabled>Select Gender</option>
-                                    <option value="Female" {% if edit.gender == 'Female' %} selected {% endif %}>Female</option>
-                                    <option value="Male" {% if edit.gender == 'Male' %} selected {% endif %}>Male</option>
-                                    <option value="Others" {% if edit.gender == 'Others' %} selected {% endif %}>Others</option>
-                                </select>
-                            </div>
-                        </div>
+                           <div class="form-group">
+                               <label>Gender</label>
+                               <select class="form-control" name="gender" required>
+                                   <option value="" disabled>Select Gender</option>
+                                   <option value="Female" {% if edit.0.gender == 'Female' %} selected {% endif %}>Female</option>
+                                   <option value="Male" {% if edit.0.gender == 'Male' %} selected {% endif %}>Male</option>
+                                   <option value="Others" {% if edit.0.gender == 'Others' %} selected {% endif %}>Others</option>
+                               </select>
+                           </div>
+                       </div>
+
+                       
 
                          
                          

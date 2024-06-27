@@ -34,6 +34,15 @@ urlpatterns = [
     path('hod/stafupdate/',hod_views.stafUpdate,name='stafupdate'),
     path('hod/staf_delate/<int:admin>/',hod_views.staf_delate,name='stafdelate'),
     path('hod/stafDetails/<int:id>/',hod_views.Staf_details,name='stafdetails'),
+    path('hod/subjectadd/',hod_views.SubjectAdd,name='subjectAdd'),
+    path('hod/subjctView/',hod_views.SubjectView,name='subject_view'),
+    path('hod/sub-update/<int:id>/',hod_views.editSubject,name='sub-edit'),
+    path('hod/update-sub,',hod_views.sub_update,name='sub-update'),
+    
+    #Staf Urls 
+    
+    path('staf/home/',staf_views.StafView,name='stafhome')
+    
 
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

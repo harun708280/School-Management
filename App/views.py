@@ -25,7 +25,7 @@ def Dologin(request: HttpRequest):
             if user_type == '1':
                 return redirect('hode/home')
             elif user_type == '2':
-                return HttpResponse('This is staff panel')
+                return redirect('stafhome')
             elif user_type == '3':
                 return HttpResponse('This is student panel')
             else:

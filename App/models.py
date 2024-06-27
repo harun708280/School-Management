@@ -55,4 +55,22 @@ class Staf(models.Model):
         return self.admin.username
     
     
+class Subject(models.Model):
+    subject_name = models.CharField(max_length=50)
+    staf_name = models.ForeignKey(Staf, on_delete=models.CASCADE, related_name='subjects')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    create = models.DateTimeField(auto_now_add=True)
+    update = models.DateField(auto_now=True)
+    
+    def __str__(self):
+        return self.subject_name
+    
+class stafNotificatuion(models.Model):
+    
+    staf_id=models.ForeignKey(Staf, on_delete=models.CASCADE)
+    message=models.TextField()
+    crated_at=models.DateTimeField( auto_now_add=False)
+    
+    def __str__(self):
+        return self.staf_id.admin.first_name
     

@@ -15,9 +15,12 @@
                     </ul>
                 </div>
                 <div class="col-auto text-right float-right ml-auto">
-                    <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-                    <a href="add-student.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                    <a href="javascript:void(0);" id="download-png" class="btn btn-outline-primary mr-2">
+                        <i class="fas fa-download"></i> Download 
+                    </a>
+                    <a href="{% url 'addstudent' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Student</a>
                 </div>
+                
             </div>
         </div>
         {% if messages %}
@@ -36,7 +39,7 @@
                 <div class="card card-table">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="table_id" class="table table-hover table-center mb-0 ">
+                            <table id="table_id" class="table table-hover table-center mb-0">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -69,21 +72,16 @@
                                                     <a href="{% url "student_details" s.id %}">{{ s.admin.first_name }} {{ s.admin.last_name }}</a>
                                                 </h2>
                                             </td>
-                                            <td>{{s.admin.email}}</td>
+                                            <td>{{ s.admin.email }}</td>
                                             <td>{{ s.phone }}</td>
                                             <td>{{ s.course_id.name }}</td>
-                                            <td>{{ s.session_year.session_start }}TO {{ s.session_year.session_end}} </td>
-                                            <td>{{s.gender}}</td>
-
+                                            <td>{{ s.session_year.session_start }} TO {{ s.session_year.session_end }}</td>
+                                            <td>{{ s.gender }}</td>
                                             <td>{{ s.create_at|date:"d M Y" }}</td>
-
-                                            
-                                            
                                             <td>{{ s.address }}</td>
-                                            
                                             <td class="text-right">
                                                 <div class="actions">
-                                                    <a href="{% url "student_edit" s.id%}" class="btn btn-sm bg-success-light mr-2">
+                                                    <a href="{% url "student_edit" s.id %}" class="btn btn-sm bg-success-light mr-2">
                                                         <i class="fas fa-pen"></i>
                                                     </a>
                                                     <a href="{% url 'delete_student' s.admin.id %}" class="btn btn-sm bg-danger-light">
@@ -102,4 +100,33 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#download-png').click(function() {
+            // Select the element containing the table to be captured
+            var tableElement = document.getElementById('table_id');
+
+            // Use html2canvas to capture the table element
+            html2canvas(tableElement).then(function(canvas) {
+                // Convert canvas to PNG image data
+                var imageData = canvas.toDataURL('image/png');
+
+                // Create a temporary link element to trigger the download
+                var downloadLink = document.createElement('a');
+                downloadLink.href = imageData;
+                downloadLink.download = 'student_data.png';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            });
+        });
+    });
+</script>
+
 {% endblock content %}

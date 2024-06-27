@@ -5,7 +5,17 @@ from django.contrib import messages
 
 @login_required(login_url='/')
 def Home(request):
-    return render(request, 'hod/home.html')
+    student=Student.objects.all().count()
+    staf=Staf.objects.all().count()
+    course=Course.objects.all().count()
+    sub=Subject.objects.all().count()
+    male=Student.objects.filter(gender='Male').count()
+    female=Student.objects.filter(gender='Female').count()
+
+    return render(request, 'hod/home.html',locals())
+
+
+
 
 @login_required(login_url='/')
 def Add_Student(request):
@@ -87,8 +97,8 @@ def Student_Edit(request,id):
     
     context={
         'student':student,
-        'course':courses,
-        'session':sessions,
+        'courses':courses,
+        'sessions':sessions,
     }
     
     return render(request,'hod/student_edit.html',context)
@@ -109,7 +119,7 @@ def StudentUpdate(request):
         password = request.POST.get('password')
         address = request.POST.get('address')
         
-        # Update CustomUser
+       
         user = CustomUser.objects.get(id=student_id)
         user.first_name = first_name
         user.last_name = last_name
@@ -121,7 +131,7 @@ def StudentUpdate(request):
             user.set_password(password)
         user.save()
         
-        # Update Student
+       
         student = Student.objects.get(admin=user)
         course = Course.objects.get(id=course_id)
         session=session_year.objects.get(id=session)
@@ -324,7 +334,63 @@ def Staf_details(request,id):
     staf=Staf.objects.get(id=id)
     return render(request,'hod/stafdetails.html',locals())
         
+def SubjectAdd(request):
+    course=Course.objects.all()
+    staf=Staf.objects.all()
+    if request.method == 'POST':
+        name=request.POST.get('name')
+        course_id=request.POST.get('course')
+        staf_id=request.POST.get('staf')
         
+        course=Course.objects.get(id=course_id)
+        staf=Staf.objects.get(id=staf_id)
+        subject=Subject(
+            subject_name=name,
+            staf_name=staf,
+            course=course
+        )
+        subject.save()
+        messages.success(request,'SuccesFully Add Subject ' + name)
+        return redirect('subjectAdd')
+    return render(request,'hod/subadd.html',locals()) 
+
+def SubjectView(request):
+    subject=Subject.objects.all().order_by('-id')
+    return render(request,'hod/viewSubject.html',locals())
         
-        
-       
+def editSubject(request,id):
+    
+    
+    edit=Subject.objects.filter(id=id)
+    course=Course.objects.all()
+    staf=Staf.objects.all()
+    
+    print(edit)
+
+    context={
+        'edit':edit,
+        'co':course,
+        'staf':staf,
+    }
+    return render(request,'hod/subupdate.html',context)       
+
+def sub_update(request):
+    subject_id = request.POST.get('subject_id')
+    name = request.POST.get('name')
+    crouse = request.POST.get('course')
+    staf = request.POST.get('staf')
+    
+    crous_id = Course.objects.get(id=crouse)
+    staf_id = Staf.objects.get(id=staf)
+
+    subject = Subject.objects.get(id=subject_id)
+    
+    
+    subject.subject_name = name
+    subject.staf_name = staf_id
+    subject.course = crous_id
+    
+ 
+    subject.save()
+    messages.success(request, 'Successfully Updated ' + name)
+    return redirect('subject_view')

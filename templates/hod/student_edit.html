@@ -86,29 +86,27 @@
                             </div>
                         </div>
 
-                         <div class="col-12 col-sm-6">
-                            <div class="form-group">
-                               <label>Course</label>
-                               <select class="form-control" name="course" required>
-                                  <option value="" disabled selected>Select Course</option>
-                                  {% for c in course %}
-                                  <option value="{{ c.id }}">{{ c.name }}</option>
-                                  {% endfor %}
-                               </select>
-                            </div>
-                         </div>
-                         
-                         <div class="col-12 col-sm-6">
-                            <div class="form-group">
-                               <label>Session Year</label>
-                               <select class="form-control" name="session" required>
-                                  <option value="" disabled selected>Select Session</option>
-                                  {% for s in session %}
-                                  <option value="{{ s.id }}">{{ s.session_start }} to {{ s.session_end }}</option>
-                                  {% endfor %}
-                               </select>
-                            </div>
-                         </div>
+                        <div class="form-group">
+                           <label>Course</label>
+                           <select class="form-control" name="course" required>
+                               <option value="" disabled>Select Course</option>
+                               {% for c in courses %}
+                               <option value="{{ c.id }}" {% if student.course_id.id == c.id %}selected{% endif %}>{{ c.name }}</option>
+                               {% endfor %}
+                           </select>
+                       </div>
+                   
+                       <!-- Session year selection dropdown -->
+                       <div class="form-group">
+                           <label>Session Year</label>
+                           <select class="form-control" name="session" required>
+                               <option value="" disabled>Select Session</option>
+                               {% for s in sessions %}
+                               <option value="{{ s.id }}" {% if student.session.id == s.id %}selected{% endif %}>{{ s.session_start }} to {{ s.session_end }}</option>
+                               {% endfor %}
+                           </select>
+                       </div>
+                   
                          
                          {% comment %} <div class="col-12 col-sm-6">
                             <div class="form-group">

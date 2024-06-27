@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Update Subject{% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Update Subject</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Subjects</a></li>
+                        <li class="breadcrumb-item active">Update Subject</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        {% if messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action={% url "sub-update" %} method='POST'>
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Subject Information</span></h5>
+                                </div>
+                                
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Subject Name</label>
+                                        <input type="text" name='name' class="form-control" value="{% for e in edit %}{{ e.subject_name }}{% endfor %}" >
+                                        <input type="text" name='subject_id' class="form-control" value="{% for e in edit %}{{ e.id }}{% endfor %}" hidden >
+                                    </div>
+                                </div>
+                                                                
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Course</label>
+                                        <select class="form-control" name="course" required>
+                                            <option value="" disabled selected>Select a course</option>
+                                            {% for c in co %}
+                                            <option value="{{ c.id }}">{{ c.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                                                
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Staff</label>
+                                        <select class="form-control" name="staf" required >
+                                            <option value="{% for s in edit %}{{s.staf_name.name}}{% endfor %}" disabled selected>{% for s in edit %}{{s.staf_name.admin.first_name}} {{s.staf_name.admin.last_name}}{% endfor %}</option>
+                                            {% for s in staf %}
+                                                <option value="{{ s.id }}" {% if s.id == edit.staf_id %} selected {% endif %}>{{ s.admin.first_name }} {{ s.admin.last_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+
+                            </div>
+                        </form>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}
