@@ -394,3 +394,54 @@ def sub_update(request):
     subject.save()
     messages.success(request, 'Successfully Updated ' + name)
     return redirect('subject_view')
+
+
+def stafNotifications(request):
+    staf=Staf.objects.all()
+    allNotification=stafNotificatuion.objects.all().order_by('-id')
+    return render(request,'hod/stafNotification.html',locals())
+
+def saveStafNotification(request):
+    if request.method == 'POST':
+        staf_id=request.POST.get('staf_id')
+        message=request.POST.get('message')
+        print(staf_id)
+        print(message)
+        staf=Staf.objects.get(admin=staf_id)
+        
+        notification=stafNotificatuion(
+            staf_id=staf,
+            message=message,
+        )
+        notification.save()
+        messages.success(request,'Succesfully Sent Notification '+ staf.admin.first_name + ' ' +staf.admin.last_name )
+    return redirect('stafNotification')
+
+
+
+def StudentHome(request):
+    
+    return render(request,'hod/studenthome.html')
+
+
+
+
+def StudentNotificationView(request):
+   student=Student.objects.all().order_by('id')
+   notification=StudentNotifications.objects.all().order_by('-id')
+   return render(request,'hod/studentnotifications.html',locals())
+
+
+def SaveStudentNotifications(request):
+    if request.method == 'POST':
+        student_id=request.POST.get('student_id')
+        message=request.POST.get('message')
+        student=Student.objects.get(admin=student_id)
+        
+        notifications=StudentNotifications(
+            student=student,
+            message=message,
+        )
+        notifications.save()
+        messages.success(request,'Succesfully Sent Notification '+ student.admin.first_name +" " + student.admin.last_name + " " +message)
+    return redirect('studentnotifications')

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Noti{% endblock title %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Departments</h3>
+                    <!-- Breadcrumb Navigation -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Departments</li>
+                    </ul>
+                </div>
+                <div class="col-auto text-right float-right ml-auto">
+                    <!-- Download Button -->
+                    <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                    <!-- Add Department Button -->
+                    <a href="add-department.html" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        {% if messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+
+        <h1>Total {{noc}}</h1>
+
+        <!-- Department Table -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Message</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Department Entries -->
+                                     {% for d in notification %}
+                                    <tr>
+                                       <td>{{d.message}}</td>
+                                       <td class="text-right">
+                                        <div class='actions'>
+
+                                            {% if d.status == 0 %}
+                                            <a href="{% url "morkdoneNotifications" status=d.id%}" class="btn btn-danger">Mark As Done</a>
+                                            {% else %}
+                                            <button type="submit" disabled="disabled" class="btn btn-success">Mark As Done</button>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- More Department Entries -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+

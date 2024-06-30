@@ -38,10 +38,23 @@ urlpatterns = [
     path('hod/subjctView/',hod_views.SubjectView,name='subject_view'),
     path('hod/sub-update/<int:id>/',hod_views.editSubject,name='sub-edit'),
     path('hod/update-sub,',hod_views.sub_update,name='sub-update'),
+    path('staf/notification/',hod_views.stafNotifications,name='stafNotification'),
+    path('staf/save/notification/',hod_views.saveStafNotification,name='staf_save_notification'),
+    path('student/home/',hod_views.StudentHome,name='studenthome'),
+    path('student/notifications/',hod_views.StudentNotificationView,name='studentnotifications'),
+    path('student/save/notifications/',hod_views.SaveStudentNotifications,name='studentsaveNotifications'),
     
     #Staf Urls 
     
-    path('staf/home/',staf_views.StafView,name='stafhome')
+    path('staf/home/',staf_views.StafView,name='stafhome'),
+    path('staf/Notification',staf_views.StafViewNotification,name='notification'),
+    path('staf/markasdone/<str:status>',staf_views.Noti_mark_done,name='morkdoneNotifications'),
+    
+    #studnet Notifications
+    
+    path('st/notifications/bd/',student_views.studentnotificationview,name='notificationsStudent_check')
+    
+    
     
 
     

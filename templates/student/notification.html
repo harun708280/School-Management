@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}notification{% endblock title %}
+
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Students</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Students</li>
+                    </ul>
+                </div>
+                <div class="col-auto text-right float-right ml-auto">
+                    <a href="javascript:void(0);" id="download-png" class="btn btn-outline-primary mr-2">
+                        <i class="fas fa-download"></i> Download 
+                    </a>
+                    <a href="{% url 'addstudent' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Student</a>
+                </div>
+                
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="table_id" class="table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Message</th>
+                                        
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for n in notification %}
+                                    <tr>
+                                    <td>
+                                    
+                                    {{ n.message }}
+                                    
+                                    </td>
+                                   
+                                    <td class="text-right">
+                                            <div class='actions'>
+    
+                                                
+                                                <a href="" class="btn btn-danger">Mark As Done</a>
+                                                
+                                                
+                                           
+                                            </div>
+                                     </td>
+                                    
+                                </tr>
+                                    {% endfor %}
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for notification in student_notifications %}
+<li>{{ notification.message }}</li>
+{% endfor %}
+{% endblock content %}

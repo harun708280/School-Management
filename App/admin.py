@@ -10,4 +10,5 @@ admin.site.register(Student),
 admin.site.register(Staf),
 admin.site.register(Subject),
 admin.site.register(stafNotificatuion),
+admin.site.register(StudentNotifications),
 # Register your models here.

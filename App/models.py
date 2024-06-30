@@ -69,8 +69,27 @@ class stafNotificatuion(models.Model):
     
     staf_id=models.ForeignKey(Staf, on_delete=models.CASCADE)
     message=models.TextField()
-    crated_at=models.DateTimeField( auto_now_add=False)
-    
+    crated_at=models.DateTimeField( auto_now_add=True)
+    status=models.IntegerField(null=True,default=0)
     def __str__(self):
         return self.staf_id.admin.first_name
+    
+    def mark_done(self):
+        self.status = 1
+        self.save()
+        
+
+class StudentNotifications(models.Model):
+    student=models.ForeignKey(Student, on_delete=models.CASCADE)
+    message=models.TextField()
+    status=models.IntegerField(default=0,null=True)
+    create_at=models.DateTimeField( auto_now_add=True)
+    
+    def __str__(self):
+        return self.student.admin.username
+    
+    def student_markdone(self):
+        self.status = 1
+        self.save()
+    
     

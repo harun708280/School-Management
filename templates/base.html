@@ -38,9 +38,29 @@
             </a>
             <ul class="nav user-menu">
                <li class="nav-item dropdown noti-dropdown">
+                  {% if user.user_type == '1' %}
                   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <i class="far fa-bell"></i> <span class="badge badge-pill">3</span>
-                  </a>
+                     <i class="far fa-bell"></i> <span class="badge badge-pill">10</span>
+                 </a>
+                 {% elif user.user_type == '2' %}
+
+                 {% if c > 0 %}
+                 <a href="{% url 'notification' %}" class="dropdown-toggle nav-link" >
+                  <i class="far fa-bell"></i> <span class="badge badge-pill">{{ c }}</span>
+                 </a>
+                 {% else %}
+                 <a href="{% url 'notification' %}" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <i class="far fa-bell"></i> </span>
+                 </a>
+                 {% endif %}
+                 
+
+                 {% else %}
+                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <i class="far fa-bell"></i> <span class="badge badge-pill">19</span>
+                 </a>
+                  {% endif %}
+                  
                   <div class="dropdown-menu notifications">
                      <div class="topnav-dropdown-header">
                         <span class="notification-title">Notifications</span>
@@ -199,10 +219,10 @@
                      </li>
                      <li>
                         <li>
-                           <a href="holiday.html"><i class="fa fa-bell"></i> <span>Student Notification Send</span></a>
+                           <a href="{% url "studentnotifications" %}"><i class="fa fa-bell"></i> <span>Student Notification Send</span></a>
                         </li>
                         <li>
-                           <a href="holiday.html"><i class="fa fa-bell"></i> <span>Staff Notification Send</span></a>
+                           <a href="{% url "stafNotification" %}"><i class="fa fa-bell"></i> <span>Staff Notification Send</span></a>
                         </li>   
                      <li>
                         <a href="holiday.html"><i class="fa fa-calendar"></i> <span>View Attendace</span></a>
@@ -254,6 +274,20 @@
                      <a href="holiday.html"><i class="fas fa-comment"></i> <span>Send  Feedback</span></a>
                   </li>
                   <li>
+                     <a href="{% url 'notification' %}">
+                         <span class="d-inline-block position-relative">
+                             <i class="fas fa-bell"></i>
+                             {% if c > 0 %}
+                             <span class="badge badge-danger badge-pill position-absolute top-0 start-100 translate-middle">
+                                 {{ c }}
+                             </span>
+                             {% endif %}
+                         </span>
+                         <span>Notification</span>
+                     </a>
+                 </li>
+                 
+                  <li>
                      <a href="{% url "logout" %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
                   </li>
                </ul>
@@ -262,7 +296,41 @@
 
                   {% else %}
 
-                  <h1>student</h1>
+                  <ul>
+
+                     <li class="menu-title">
+                        <span>Main Menu</span>
+                     </li>
+                     <li>
+                        <a href="{% url "hode/home" %}"><i class="fas fa-warehouse"></i> <span>Dashboard</span></a>
+                     </li>
+   
+                     <li>
+                        <a href="holiday.html"><i class="fa fa-calendar"></i> <span>Take Attendace</span></a>
+                     </li>
+                     <li>
+                        <a href="holiday.html"><i class="fa fa-calendar-alt"></i> <span>View/Update Attendace</span></a>
+                     </li>
+                     <li>
+                        <a href="holiday.html"><i class="fas fa-poll-h"></i> <span>Add result</span></a>
+                     </li>
+                     <li>
+                        <a href="holiday.html"><i class="fas fa-envelope-open"></i> <span>Apply for Leave</span></a>
+                     </li>
+                     <li>
+                        <a href="holiday.html"><i class="fas fa-comment"></i> <span>Send  Feedback</span></a>
+                     </li>
+                     <li>
+                        
+                    </li>
+                    <li>
+                     <a href="{% url "notificationsStudent_check" %}"><i class="fa fa-bell"></i> <span> Notification </span></a>
+                  </li>
+                     <li>
+                        <a href="{% url "logout" %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+                     </li>
+                  </ul>
+   
 
                   {% endif %}
 
