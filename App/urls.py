@@ -52,7 +52,8 @@ urlpatterns = [
     
     #studnet Notifications
     
-    path('st/notifications/bd/',student_views.studentnotificationview,name='notificationsStudent_check')
+    path('st/notifications/bd/',student_views.studentnotificationview,name='notificationsStudent_check'),
+    path('student/notification/markdone/<str:student_status>',student_views.studentnotificationsmarkdone,name='student_notificationmark_done'),
     
     
     

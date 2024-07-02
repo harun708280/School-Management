@@ -50,8 +50,12 @@
                                     <td class="text-right">
                                             <div class='actions'>
     
-                                                
-                                                <a href="" class="btn btn-danger">Mark As Done</a>
+                                                {% if n.status == 0 %}
+                                                <a href="{% url "student_notificationmark_done" student_status=n.id %}" class="btn btn-danger">Mark As Done</a>
+                                                {% else %}
+                                                <button type="button" class="btn btn-success" disabled="disabled">Mark As Done</button>
+
+                                                {% endif %}
                                                 
                                                 
                                            
