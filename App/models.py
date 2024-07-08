@@ -91,5 +91,25 @@ class StudentNotifications(models.Model):
     def student_markdone(self):
         self.status = 1
         self.save()
+   
+class Stafleave(models.Model):
+    staf_id=models.ForeignKey(Staf, on_delete=models.CASCADE) 
+    data=models.CharField( max_length=100)
+    message=models.TextField()
+    status=models.IntegerField(default=0)
+    create=models.DateField( auto_now_add=True)
+    update=models.DateField( auto_now_add=True)
     
+    def __str__(self):
+        return self.staf_id.admin.username
+    
+    def LeaveApprove(self):
+        self.status = 1
+        self.save()
+        
+    def LeaveDisapprove(self):
+        self.status = 2
+        self.save()
+    
+
     

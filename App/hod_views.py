@@ -445,3 +445,21 @@ def SaveStudentNotifications(request):
         notifications.save()
         messages.success(request,'Succesfully Sent Notification '+ student.admin.first_name +" " + student.admin.last_name + " " +message)
     return redirect('studentnotifications')
+
+def stafLeave(request):
+    
+    stafLeave=Stafleave.objects.all().order_by('-id')
+    
+    return render(request,'hod/stafleave.html',locals())
+
+def SatfApproveLeave(request,staf_approve_id):
+    approveleave=Stafleave.objects.get(id=staf_approve_id)
+    
+    approveleave.LeaveApprove()
+    
+    return redirect('stafleave_hod')
+
+def StafDisapproveleave(request,staf_disapprove_id):
+    stafdisapprove=Stafleave.objects.get(id=staf_disapprove_id)
+    stafdisapprove.LeaveDisapprove()
+    return redirect('stafleave_hod')

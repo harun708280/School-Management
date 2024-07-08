@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}leave{% endblock title %}
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        {% if messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+            <strong>{{ message }}</strong>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Staff</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Students</li>
+                    </ul>
+                </div>
+                <div class="col-auto text-right float-right ml-auto">
+                    
+                    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" type="button"><i class="fas fa-pray"></i> Leave Apply History</button>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{% url 'staf_leave_save' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Apply For Leave</span></h5>
+
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="course">Leave Date</label>
+                                        <input type="date" class="form-control" id="course" name="leavedate" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label for="address">Message</label>
+                                        <textarea class="form-control" id="address" name="message" rows="5" required></textarea>
+                                    </div>
+                                </div>
+                                <!-- Add other form fields here -->
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary" >Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Leave History</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Message</th>
+                                        <th>Date</th>
+                                       <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Department Entries -->
+                                     {% for c in leave_history %}
+                                    <tr>
+                                        <td>{{c.message}}</td>
+                                        <td>
+                                            <h2><a>{{c.data}}</a></h2>
+                                        </td>
+                                        
+                                        
+                                        <td class="text-right">
+                                            <!-- Edit and Delete Buttons -->
+                                            <div >
+                                                {% if c.status == 0 %}
+                                                <span class="badge badge-warning">Panding</span>
+                                                {% elif c.status == 1 %}
+                                                <span class="badge badge-success">Approve</span>
+                                                {% else %}
+                                                <span class="badge badge-danger">Disapprove</span>
+                                                {% endif %}
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- More Department Entries -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

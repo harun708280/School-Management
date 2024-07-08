@@ -43,12 +43,17 @@ urlpatterns = [
     path('student/home/',hod_views.StudentHome,name='studenthome'),
     path('student/notifications/',hod_views.StudentNotificationView,name='studentnotifications'),
     path('student/save/notifications/',hod_views.SaveStudentNotifications,name='studentsaveNotifications'),
+    path('hod/staf/stafleave/',hod_views.stafLeave,name='stafleave_hod'),
+    path('stafleaveapprove/<str:staf_approve_id>',hod_views.SatfApproveLeave,name='staf_approve'),
+    path('stafdisapprove/<str:staf_disapprove_id>',hod_views.StafDisapproveleave,name='staf_disapprove'),
     
     #Staf Urls 
     
     path('staf/home/',staf_views.StafView,name='stafhome'),
     path('staf/Notification',staf_views.StafViewNotification,name='notification'),
     path('staf/markasdone/<str:status>',staf_views.Noti_mark_done,name='morkdoneNotifications'),
+    path('staf/applyleave/',staf_views.StafApplyLeave,name='stafleave'),
+    path('staf/applyleave/save',staf_views.leaveSave,name='staf_leave_save'),
     
     #studnet Notifications
     
